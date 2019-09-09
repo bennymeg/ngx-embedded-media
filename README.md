@@ -57,7 +57,7 @@ Object to be serialized as a query string and appended to the embedded content u
 
 ### attributes
 
-Object to add additional attributes (any) to the iframe / image. I.e:
+Object containing additional attributes to be added to the embedded iframe / image. I.e:
 
 ```html
 <embedded-media video='https://www.youtube.com/watch?v=3Wf29RiKp70' attributes='{ "width": 600, "height": 300 }'></embedded-media>
