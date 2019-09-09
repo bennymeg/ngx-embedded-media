@@ -1,5 +1,5 @@
 {
-  "name": "embedded-media",
+  "name": "ngx-embedded-media",
   "version": "8.0.0",
   "peerDependencies": {
     "@angular/common": "^8.0.0",
