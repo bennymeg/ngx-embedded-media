@@ -1,6 +1,25 @@
 {
   "name": "ngx-embedded-media",
-  "version": "8.0.0",
+  "description": "Embed media from from top tier media providers directly in your Angular 6+ application",
+  "author": "Benny Megidish",
+  "license": "Apache-2.0",
+  "version": "8.0.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bennymeg/ngx-embedded-media.git"
+  },
+  "keywords": [
+    "embedded",
+    "media",
+    "video",
+    "thumbnail",
+    "youtube",
+    "vimeo",
+    "dailymotion",
+    "angular",
+    "ngx",
+    "typescript"
+  ],
   "peerDependencies": {
     "@angular/common": "^8.0.0",
     "@angular/core": "^8.0.0"
