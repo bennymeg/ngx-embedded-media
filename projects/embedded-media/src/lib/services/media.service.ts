@@ -55,11 +55,11 @@ export class EmbeddedMediaService {
         break;
       default:
         if (this._youtubeProvider.isValidUrl(url)) {
-          return this.getMediaById(this._youtubeProvider.getMediaId(url), type, provider, options);
+          return this.getMediaById(this._youtubeProvider.getMediaId(url), type, 'youtube', options);
         } else if (this._vimeoProvider.isValidUrl(url)) {
-          return this.getMediaById(this._vimeoProvider.getMediaId(url), type, provider, options);
+          return this.getMediaById(this._vimeoProvider.getMediaId(url), type, 'vimeo', options);
         } else if (this._dailyMotionProvider.isValidUrl(url)) {
-          return this.getMediaById(this._dailyMotionProvider.getMediaId(url), type, provider, options);
+          return this.getMediaById(this._dailyMotionProvider.getMediaId(url), type, 'daily-motion', options);
         } else {
           console.error(`unknown content provider for '${url}'`);
         }     
