@@ -2,5 +2,163 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "embedded-media": {
+      "projectType": "library",
+      "root": "projects/embedded-media",
+      "sourceRoot": "projects/embedded-media/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/embedded-media/tsconfig.lib.json",
+            "project": "projects/embedded-media/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/embedded-media/src/test.ts",
+            "tsConfig": "projects/embedded-media/tsconfig.spec.json",
+            "karmaConfig": "projects/embedded-media/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/embedded-media/tsconfig.lib.json",
+              "projects/embedded-media/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "embedded-media-test": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/embedded-media-test",
+      "sourceRoot": "projects/embedded-media-test/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/embedded-media-test",
+            "index": "projects/embedded-media-test/src/index.html",
+            "main": "projects/embedded-media-test/src/main.ts",
+            "polyfills": "projects/embedded-media-test/src/polyfills.ts",
+            "tsConfig": "projects/embedded-media-test/tsconfig.app.json",
+            "aot": false,
+            "assets": [
+              "projects/embedded-media-test/src/favicon.ico",
+              "projects/embedded-media-test/src/assets"
+            ],
+            "styles": [
+              "projects/embedded-media-test/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/embedded-media-test/src/environments/environment.ts",
+                  "with": "projects/embedded-media-test/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "embedded-media-test:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "embedded-media-test:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "embedded-media-test:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/embedded-media-test/src/test.ts",
+            "polyfills": "projects/embedded-media-test/src/polyfills.ts",
+            "tsConfig": "projects/embedded-media-test/tsconfig.spec.json",
+            "karmaConfig": "projects/embedded-media-test/karma.conf.js",
+            "assets": [
+              "projects/embedded-media-test/src/favicon.ico",
+              "projects/embedded-media-test/src/assets"
+            ],
+            "styles": [
+              "projects/embedded-media-test/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/embedded-media-test/tsconfig.app.json",
+              "projects/embedded-media-test/tsconfig.spec.json",
+              "projects/embedded-media-test/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/embedded-media-test/e2e/protractor.conf.js",
+            "devServerTarget": "embedded-media-test:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "embedded-media-test:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "embedded-media"
 }

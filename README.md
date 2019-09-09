@@ -1,27 +1,117 @@
-# NgxEmbeddedMedia
+# ngx-embedded-media
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.3.
+Embed media from from top tier media providers directly in your Angular 6+ application.
+Currently supports YouTube, Vimeo and Dailymotion.
 
-## Development server
+[![licence](https://img.shields.io/github/license/bennymeg/ngx-embedded-media.svg)](https://github.com/bennymeg/IsraelPostalServiceAPI/blob/master/LICENSE)
+[![npm version](https://img.shields.io/npm/v/ngx-embedded-media.svg)](https://www.npmjs.com/package/ngx-embedded-media)
+[![Dependencies status](https://david-dm.org/bennymeg/ngx-embedded-media/status.svg)](https://david-dm.org/bennymeg/ngx-embedded-media)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To install ngx-embedded-media library, run:
 
-## Build
+```bash
+$ npm install ngx-embedded-media --save
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Importing the Library Module
 
-## Running unit tests
+```typescript
+import { EmbeddedMediaModule } from 'ngx-embedded-media';
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+@NgModule({
+  imports: [EmbeddedMediaModule.forRoot()]
+})
+export class AppModule {}
+```
 
-## Running end-to-end tests
+# Usage
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Embedding a video:
 
-## Further help
+```html
+<embedded-media video='https://www.youtube.com/watch?v=3Wf29RiKp70'></embedded-media>
+<!-- OR -->
+<embedded-media video='3Wf29RiKp70' provider='youtube'></embedded-media>
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Embedding video thumbnail:
+
+```html
+<embedded-media image='https://vimeo.com/186450193'></embedded-media>
+<!-- OR -->
+<embedded-media image='186450193' provider='vimeo'></embedded-media>
+```
+
+## Available Optional Inputs
+
+### query
+
+Object to be serialized as a query string and appended to the embedded content url. I.e:
+
+```html
+<embedded-media video='https://www.youtube.com/watch?v=3Wf29RiKp70' query='{ "portrait": 0, "color": "fdfdfd" }'></embedded-media>
+```
+
+### attributes
+
+Object to add additional attributes (any) to the iframe / image. I.e:
+
+```html
+<embedded-media video='https://www.youtube.com/watch?v=3Wf29RiKp70' attributes='{ "width": 600, "height": 300 }'></embedded-media>
+```
+
+### Provider
+
+The service provider name.
+
+- youtube
+- vimeo
+- daily-motion
+
+```html
+<embedded-media video='3Wf29RiKp70' provider='youtube'></embedded-media>
+```
+
+### Resolution Options
+
+Unique options that can be passed to the service provider to control the video / thumbnail appearance. 
+
+#### Youtube Image Resolution Options
+
+- default
+- mqdefault
+- hqdefault
+- sddefault
+- maxresdefault
+
+```html
+<embedded-media image='https://www.youtube.com/watch?v=3Wf29RiKp70' resolution='mqdefault'></embedded-media>
+```
+
+#### Vimeo Image Resolution Options
+
+- thumbnail_small
+- thumbnail_medium
+- thumbnail_large
+
+```html
+<embedded-media image='https://vimeo.com/186450193' resolution='thumbnail_medium'></embedded-media>
+```
+
+#### Dailymotion Image Resolution Options
+
+- thumbnail_60_url
+- thumbnail_120_url
+- thumbnail_180_url
+- thumbnail_240_url
+- thumbnail_360_url
+- thumbnail_480_url
+- thumbnail_720_url
+- thumbnail_1080_url
+
+```html
+<embedded-media image='https://www.dailymotion.com/video/x36btaw' resolution='thumbnail_1080_url'></embedded-media>
+```

@@ -17,7 +17,15 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "embedded-media": [
+        "dist/embedded-media"
+      ],
+      "embedded-media/*": [
+        "dist/embedded-media/*"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
