@@ -3,13 +3,14 @@
     "description": "Embed media from from top tier media providers directly in your Angular 6+ application",
     "author": "Benny Megidish",
     "license": "Apache-2.0",
-    "version": "8.2.1",
+    "version": "8.2.2",
     "repository": {
         "type": "git",
         "url": "https://github.com/bennymeg/ngx-embedded-media.git"
     },
     "scripts": {
-        "test": "ng test"
+        "test": "ng test",
+        "lint": "ng lint"
     },
     "keywords": [
         "embedded",

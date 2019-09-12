@@ -68,9 +68,12 @@ export abstract class MediaProvider {
         return result;
     }
 
+    public static isValidMediaId(id: string): boolean {
+        return !!id.match(/^[A-Za-z0-9]+$/g);
+    }
 
     public isValidProviderOption(option: string): boolean {
-        return this.options.indexOf(option) >= 0
+        return this.options.indexOf(option) >= 0;
     }
 
     public getProviderOptions(): Array<string> {

@@ -25,7 +25,7 @@ export class EmbeddedMediaService {
     constructor(private _providersFactory: ProvidersFactory) { }
 
     public getMedia(urlIdString: string, type: MediaType, provider?: Provider, options?: Options): any {
-        if (urlIdString.match(/^[A-Za-z0-9]+$/g)) {
+        if (MediaProvider.isValidMediaId(urlIdString)) {
             if (!provider) console.warn('provider is missing');
 
             return this.getMediaById(urlIdString, type, provider, options);
