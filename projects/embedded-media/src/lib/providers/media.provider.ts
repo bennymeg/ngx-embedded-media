@@ -21,98 +21,99 @@ export type MediaType = 'video' | 'image';
 export type OptionsType = 'query' | 'attributes' | 'resolution';
 
 export interface Options {
-  query: any;
-  attr: any;
-  image: any;
+    query: any;
+    attr: any;
+    image: any;
 }
 
 @Injectable({
     providedIn: 'root'
 })
 export abstract class MediaProvider {
-  abstract options: Array<string>;
+    abstract options: Array<string>;
 
-  constructor(protected http: HttpClient, private _sanitizer: DomSanitizer) {}
+    constructor(protected http: HttpClient, private _sanitizer: DomSanitizer) {}
 
-  abstract getImage(id: string, options?: any): any;
+    abstract getImage(id: string, options?: any): any;
 
-  abstract getVideo(id: string, options?: any): string;
+    abstract getVideo(id: string, options?: any): string;
 
-  abstract getMediaId(url: URL): string;
+    abstract getMediaId(url: URL): string;
 
-  public isValidUrl(url: URL): boolean {
-    const mediaId: string = this.getMediaId(url);
+    public isValidUrl(url: URL): boolean {
+        const mediaId: string = this.getMediaId(url);
 
-    return mediaId && mediaId.length != 0;
-  }
-
-  public getMedia(id: string, type: MediaType, options?: any): any {
-    let result: any;
-
-    if (!options || typeof options === 'function') {
-      options = {};
+        return mediaId && mediaId.length != 0;
     }
 
-    switch (type) {
-      case 'image':
-        result = this.getImage(id, options);
-        break;
-      case 'video':
-        result = this.getVideo(id, options);
+    public getMedia(id: string, type: MediaType, options?: any): any {
+        let result: any;
+
+        if (!options || typeof options === 'function') {
+            options = {};
+        }
+
+        switch (type) {
+            case 'image':
+                result = this.getImage(id, options);
+                break;
+            case 'video':
+                result = this.getVideo(id, options);
+                break;
+        }
+
+        return result;
     }
 
-    return result;
-  }
 
+    public isValidProviderOption(option: string): boolean {
+        return this.options.indexOf(option) >= 0
+    }
 
-  public isValidProviderOption(option: string): boolean {
-    return this.options.indexOf(option) >= 0
-  }
+    public getProviderOptions(): Array<string> {
+        return this.options;
+    }
 
-  public getProviderOptions(): Array<string> {
-    return this.options;
-  }
+    protected parseGlobalOptions(options: any): any {
+        let query = '';
+        let attributes = '';
 
-  protected parseGlobalOptions(options: any): any {
-      let query = '';
-      let attributes = '';
-  
-      if (options) {
-        if (options.hasOwnProperty('query')) {
-          query = '?' + this.serializeQuery(options.query);
+        if (options) {
+            if (options.hasOwnProperty('query')) {
+                query = '?' + this.serializeQuery(options.query);
+            }
+
+            if (options.hasOwnProperty('attributes')) {
+                attributes = ' ' + this.serializeAttributes(options.attributes)
+            }
         }
-    
-        if (options.hasOwnProperty('attributes')) {
-          attributes = ' ' + this.serializeAttributes(options.attributes)
-        }
-      }
 
-      return { query, attributes };
+        return { query, attributes };
     }
 
     private serializeQuery(query: any): any {
-      let queryString: any = [];
-  
-      for (let property in query) {
-        if (query.hasOwnProperty(property)) {
-          queryString.push(encodeURIComponent(property) + '=' + encodeURIComponent(query[property]));
+        let queryString: any = [];
+
+        for (let property in query) {
+            if (query.hasOwnProperty(property)) {
+                queryString.push(encodeURIComponent(property) + '=' + encodeURIComponent(query[property]));
+            }
         }
-      }
-  
-      return queryString.join('&');
+
+        return queryString.join('&');
     }
 
     private serializeAttributes(attributes: any): any {
-      let attributesString = <any>[];
-    
-      Object.keys(attributes).forEach(function (key) {
-        attributesString.push(key + '="' + (attributes[key]) + '"');
-      });
+        let attributesString = <any>[];
 
-      return attributesString.join(' ');
+        Object.keys(attributes).forEach(function (key) {
+            attributesString.push(key + '="' + (attributes[key]) + '"');
+        });
+
+        return attributesString.join(' ');
     }
-  
+
     protected sanitize_iframe(iframe: string): any {
-      return this._sanitizer.bypassSecurityTrustHtml(iframe);
+        return this._sanitizer.bypassSecurityTrustHtml(iframe);
     }
 }

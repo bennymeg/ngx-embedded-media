@@ -19,20 +19,20 @@ import { EmbeddedMediaService } from './media.service';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('EmbeddedMediaService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientModule
-      ],
-      providers: [
-        EmbeddedMediaService
-      ]
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                HttpClientModule
+            ],
+            providers: [
+                EmbeddedMediaService
+            ]
+        });
     });
-  });
 
-  it('is defined',
-    inject([EmbeddedMediaService], (embeddedMediaService) => {
+    it('is defined',
+        inject([EmbeddedMediaService], (embeddedMediaService) => {
 
-      expect(embeddedMediaService).toBeDefined();
-    }));
+            expect(embeddedMediaService).toBeDefined();
+        }));
 });

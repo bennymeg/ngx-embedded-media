@@ -17,40 +17,40 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class VimeoProvider extends MediaProvider {
     options: string[] = [
         'thumbnail_small',
         'thumbnail_medium',
         'thumbnail_large'
-    ];  
+    ];
 
     getImage(id: string, options?: any) {
         options.resolution = this.isValidProviderOption(options.resolution) ? options.resolution : 'thumbnail_large';
 
         return this.http.get(`https://vimeo.com/api/v2/video/${id}.json`).pipe(map((response: any) => {
-          return {
-            'link': response[0][options.resolution],
-            'html': `<img src="${response[0][options.resolution]}"/>`
-          };
+            return {
+                'link': response[0][options.resolution],
+                'html': `<img src="${response[0][options.resolution]}"/>`
+            };
         }))
-        .toPromise()
-        .catch(error => console.log(error));
+            .toPromise()
+            .catch(error => console.log(error));
     }
 
     getVideo(id: string, options?: any): string {
         options = this.parseGlobalOptions(options);
 
         return this.sanitize_iframe('<iframe src="https://player.vimeo.com/video/'
-          + id + options.query + '"' + options.attributes
-          + ' frameborder="0" allowfullscreen></iframe>');
+            + id + options.query + '"' + options.attributes
+            + ' frameborder="0" allowfullscreen></iframe>');
 
         // return this.sanitize_iframe(`<iframe src="https://player.vimeo.com/video/${id}${options.query}" ${options.attributes} frameborder="0" allowfullscreen></iframe>`);
     }
 
     getMediaId(url: URL): string {
-        return (url.hostname === 'vimeo.com') ? url.pathname.split('/')[1] : null;
+        return (url.hostname === 'vimeo.com') ? url.pathname.split('/')[1] : '';
     }
 
 }

@@ -51,15 +51,17 @@ export class YoutubeProvider extends MediaProvider {
     }
 
     getMediaId(url: URL): string {
+        let id: string = '';
+        
         if (url.hostname.indexOf('youtube.com') > -1) {
-            return url.search.split('=')[1];
-          }
-      
-          if (url.hostname === 'youtu.be') {
-            return url.pathname.split('/')[1];
-          }
-      
-          return '';
+            id = url.search.split('=')[1];
+        }
+    
+        if (url.hostname === 'youtu.be') {
+            id = url.pathname.split('/')[1];
+        }
+    
+        return id;
     }
 
 }
