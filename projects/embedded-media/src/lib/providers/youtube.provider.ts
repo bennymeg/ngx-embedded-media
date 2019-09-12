@@ -14,6 +14,7 @@
 
 import { MediaProvider } from './media.provider';
 import { Injectable } from '@angular/core';
+import { Provider } from '../factories/providers.factory';
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +26,11 @@ export class YoutubeProvider extends MediaProvider {
         'hqdefault',
         'sddefault',
         'maxresdefault'
-    ];    
+    ];
+
+    getName(): Provider {
+        return 'youtube';
+    }
 
     getImage(id: string, options?: any) {
         options.resolution = this.isValidProviderOption(options.resolution) ? options.resolution : 'default';

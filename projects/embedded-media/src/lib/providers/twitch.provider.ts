@@ -14,6 +14,7 @@
 
 import { MediaProvider } from './media.provider';
 import { Injectable } from '@angular/core';
+import { Provider } from '../factories/providers.factory';
 
 // api: https://dev.twitch.tv/docs/embed/video-and-clips/
 type VideoSubtype = 'video' | 'clip';
@@ -24,6 +25,10 @@ type VideoSubtype = 'video' | 'clip';
 export class TwitchProvider extends MediaProvider {
     options: string[] = [];
     videoSubtype: VideoSubtype;
+
+    getName(): Provider {
+        return 'twitch';
+    }
 
     getImage(id: string, options?: any) {
         // https://dev.twitch.tv/docs/api/reference#get-videos

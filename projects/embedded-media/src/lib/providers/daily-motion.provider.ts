@@ -15,6 +15,7 @@
 import { MediaProvider } from './media.provider';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { Provider } from '../factories/providers.factory';
 
 @Injectable({
     providedIn: 'root'
@@ -30,6 +31,10 @@ export class DailyMotionProvider extends MediaProvider {
         'thumbnail_720_url',
         'thumbnail_1080_url'
     ];
+
+    getName(): Provider {
+        return 'daily-motion';
+    }
 
     getImage(id: string, options?: any) {
         options.resolution = this.isValidProviderOption(options.resolution) ? options.resolution : 'thumbnail_480_url';

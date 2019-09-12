@@ -15,6 +15,7 @@
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Injectable } from '@angular/core';
+import { Provider } from '../factories/providers.factory';
 
 export type MediaType = 'video' | 'image';
 
@@ -39,6 +40,8 @@ export abstract class MediaProvider {
     abstract getVideo(id: string, options?: any): string;
 
     abstract getMediaId(url: URL): string;
+
+    abstract getName(): Provider;
 
     public isValidUrl(url: URL): boolean {
         const mediaId: string = this.getMediaId(url);

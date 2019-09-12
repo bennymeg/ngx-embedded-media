@@ -13,22 +13,16 @@
 // limitations under the License.
 
 import { Injectable } from '@angular/core';
-import { YoutubeProvider } from '../providers/youtube.provider';
-import { VimeoProvider } from '../providers/vimeo.provider';
-import { DailyMotionProvider } from '../providers/daily-motion.provider';
-import { MediaType, Options } from '../providers/media.provider';
-import { TwitchProvider } from '../providers/twitch.provider';
+import { ProvidersFactory, Provider } from '../factories/providers.factory';
+import { MediaType, Options, MediaProvider } from '../providers/media.provider';
 
-
-export type Provider = 'youtube' | 'twitch' | 'vimeo' | 'daily-motion';
 
 @Injectable({
     providedIn: 'root'
 })
 export class EmbeddedMediaService {
 
-    constructor(private _youtubeProvider: YoutubeProvider, private _twitchProvider: TwitchProvider,
-        private _vimeoProvider: VimeoProvider, private _dailyMotionProvider: DailyMotionProvider) { }
+    constructor(private _providersFactory: ProvidersFactory) { }
 
     public getMedia(urlIdString: string, type: MediaType, provider?: Provider, options?: Options): any {
         if (urlIdString.match(/^[A-Za-z0-9]+$/g)) {
@@ -41,57 +35,35 @@ export class EmbeddedMediaService {
     }
 
     public getMediaFromUrl(urlString: string, type: MediaType, provider?: Provider, options?: Options): any {
-        let url = new URL(urlString);
         let result: any;
+        let url = new URL(urlString);
+        let contentProvider: MediaProvider;
 
-        switch (provider) {
-            case 'youtube':
-                result = this.getMediaById(this._youtubeProvider.getMediaId(url), type, provider, options);
-                break;
-            case 'twitch':
-                result = this.getMediaById(this._twitchProvider.getMediaId(url), type, provider, options);
-                break;
-            case 'vimeo':
-                result = this.getMediaById(this._vimeoProvider.getMediaId(url), type, provider, options);
-                break;
-            case 'daily-motion':
-                result = this.getMediaById(this._dailyMotionProvider.getMediaId(url), type, provider, options);
-                break;
-            default:
-                if (this._youtubeProvider.isValidUrl(url)) {
-                    return this.getMediaById(this._youtubeProvider.getMediaId(url), type, 'youtube', options);
-                } else if (this._twitchProvider.isValidUrl(url)) {
-                    return this.getMediaById(this._twitchProvider.getMediaId(url), type, 'twitch', options);
-                } else if (this._vimeoProvider.isValidUrl(url)) {
-                    return this.getMediaById(this._vimeoProvider.getMediaId(url), type, 'vimeo', options);
-                } else if (this._dailyMotionProvider.isValidUrl(url)) {
-                    return this.getMediaById(this._dailyMotionProvider.getMediaId(url), type, 'daily-motion', options);
-                } else {
-                    console.error(`unknown content provider for '${url}'`);
-                }
+        // get content provider from the factory
+        if (provider) {
+            contentProvider = this._providersFactory.getProviderByName(provider);
+        }
+
+        // get content provider from the factory 2nd attempt
+        if (!contentProvider) {
+            contentProvider = this._providersFactory.getProviderByUrl(url);  
+        }
+
+        // fetch media content
+        if (contentProvider) {
+            result = this.getMediaById(contentProvider.getMediaId(url), type, contentProvider.getName(), options);
         }
 
         return result;
     }
 
-    public getMediaById(id: string, type: MediaType, provider?: Provider, options?: Options): any {
+    public getMediaById(id: string, type: MediaType, provider: Provider, options?: Options): any {
         let result: any;
+        let contentProvider: MediaProvider = this._providersFactory.getProviderByName(provider);
 
-        switch (provider) {
-            case 'youtube':
-                result = this._youtubeProvider.getMedia(id, type, options);
-                break;
-            case 'twitch':
-                    result = this._twitchProvider.getMedia(id, type, options);
-                    break;
-            case 'vimeo':
-                result = this._vimeoProvider.getMedia(id, type, options);
-                break;
-            case 'daily-motion':
-                result = this._dailyMotionProvider.getMedia(id, type, options);
-                break;
-            default:
-                console.error(`unknown content provider '${provider}'`);
+        // fetch media content
+        if (contentProvider) {
+            result = contentProvider.getMedia(id, type, options);
         }
 
         return result;

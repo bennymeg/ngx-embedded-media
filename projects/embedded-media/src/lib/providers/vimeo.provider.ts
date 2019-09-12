@@ -15,6 +15,7 @@
 import { MediaProvider } from './media.provider';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
+import { Provider } from '../factories/providers.factory';
 
 @Injectable({
     providedIn: 'root'
@@ -25,6 +26,10 @@ export class VimeoProvider extends MediaProvider {
         'thumbnail_medium',
         'thumbnail_large'
     ];
+
+    getName(): Provider {
+        return 'vimeo';
+    }
 
     getImage(id: string, options?: any) {
         options.resolution = this.isValidProviderOption(options.resolution) ? options.resolution : 'thumbnail_large';
