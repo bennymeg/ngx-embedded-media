@@ -46,7 +46,7 @@ export abstract class MediaProvider {
     public isValidUrl(url: URL): boolean {
         const mediaId: string = this.getMediaId(url);
 
-        return mediaId && mediaId.length != 0;
+        return mediaId && mediaId.length !== 0;
     }
 
     public getMedia(id: string, type: MediaType, options?: any): any {
@@ -90,7 +90,7 @@ export abstract class MediaProvider {
             }
 
             if (options.hasOwnProperty('attributes')) {
-                attributes = ' ' + this.serializeAttributes(options.attributes)
+                attributes = ' ' + this.serializeAttributes(options.attributes);
             }
         }
 
@@ -110,9 +110,9 @@ export abstract class MediaProvider {
     }
 
     private serializeAttributes(attributes: any): any {
-        let attributesString = <any>[];
+        let attributesString = <any> [];
 
-        Object.keys(attributes).forEach(function (key) {
+        Object.keys(attributes).forEach(key => {
             attributesString.push(key + '="' + (attributes[key]) + '"');
         });
 

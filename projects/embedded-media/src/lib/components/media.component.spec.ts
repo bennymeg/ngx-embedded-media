@@ -14,7 +14,7 @@
 
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MediaComponent } from './media.component'
+import { MediaComponent } from './media.component';
 
 describe('LibraryComponent', () => {
   let component: MediaComponent;

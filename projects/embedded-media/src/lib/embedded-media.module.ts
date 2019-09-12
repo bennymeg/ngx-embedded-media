@@ -14,7 +14,7 @@
 
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
 
 import { EmbeddedMediaService } from './services/media.service';
 import { MediaComponent } from './components/media.component';

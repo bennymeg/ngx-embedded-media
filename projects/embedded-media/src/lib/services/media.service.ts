@@ -36,7 +36,7 @@ export class EmbeddedMediaService {
 
     public getMediaFromUrl(urlString: string, type: MediaType, provider?: Provider, options?: Options): any {
         let result: any;
-        let url = new URL(urlString);
+        const url = new URL(urlString);
         let contentProvider: MediaProvider;
 
         // get content provider from the factory
@@ -46,7 +46,7 @@ export class EmbeddedMediaService {
 
         // get content provider from the factory 2nd attempt
         if (!contentProvider) {
-            contentProvider = this._providersFactory.getProviderByUrl(url);  
+            contentProvider = this._providersFactory.getProviderByUrl(url);
         }
 
         // fetch media content
@@ -59,7 +59,7 @@ export class EmbeddedMediaService {
 
     public getMediaById(id: string, type: MediaType, provider: Provider, options?: Options): any {
         let result: any;
-        let contentProvider: MediaProvider = this._providersFactory.getProviderByName(provider);
+        const contentProvider: MediaProvider = this._providersFactory.getProviderByName(provider);
 
         // fetch media content
         if (contentProvider) {

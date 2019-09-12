@@ -63,7 +63,7 @@ export class ProvidersFactory {
         } else if (this._vimeoProvider.isValidUrl(providerUrl)) {
             result = this._vimeoProvider;
         } else if (this._dailyMotionProvider.isValidUrl(providerUrl)) {
-            result = this._dailyMotionProvider
+            result = this._dailyMotionProvider;
         } else {
             console.error(`unknown content provider for url: '${providerUrl}'`);
         }

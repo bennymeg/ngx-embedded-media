@@ -59,7 +59,7 @@ export class TwitchProvider extends MediaProvider {
     }
 
     preprocessOptions(id: string, options?: any): any {
-        let videoSubtype: VideoSubtype = this.getVideoSubtype(id);
+        const videoSubtype: VideoSubtype = this.getVideoSubtype(id);
 
         if (!options.hasOwnProperty('query')) {
             options.query = {};
@@ -81,17 +81,17 @@ export class TwitchProvider extends MediaProvider {
         let id: string = '';
 
         if (url.hostname === 'www.twitch.tv') {
-            let path = url.pathname.split('/');
+            const path = url.pathname.split('/');
 
             if (path.length >= 3) {
-                if (path[1] == 'videos') {
+                if (path[1] === 'videos') {
                     this.videoSubtype = 'video';
                     id = path[2];
                 }
             }
 
             if (path.length >= 4) {
-                if (path[2] == 'clip') {
+                if (path[2] === 'clip') {
                     this.videoSubtype = 'clip';
                     id = path[3];
                 }

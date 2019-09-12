@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { Component, OnInit, Input } from '@angular/core';
-import { Provider } from '../services/media.service';
+import { Provider } from '../factories/providers.factory';
 import { EmbeddedMediaService } from '../services/media.service';
 
 @Component({
@@ -22,7 +22,7 @@ import { EmbeddedMediaService } from '../services/media.service';
   styleUrls: ['./media.component.scss']
 })
 export class MediaComponent implements OnInit {
-  embeddedMediaHtml: string = "";
+  embeddedMediaHtml: string = '';
   mediaOptions: any = {};
 
   @Input('video') video: string;

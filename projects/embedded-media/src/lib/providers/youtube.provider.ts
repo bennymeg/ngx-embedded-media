@@ -35,9 +35,9 @@ export class YoutubeProvider extends MediaProvider {
     getImage(id: string, options?: any) {
         options.resolution = this.isValidProviderOption(options.resolution) ? options.resolution : 'default';
 
-        let src = `https://img.youtube.com/vi/${id}/${options.resolution}.jpg`;
+        const src = `https://img.youtube.com/vi/${id}/${options.resolution}.jpg`;
 
-        let result = {
+        const result = {
             link: src,
             html: `<img src="${src}"/>`
         };
@@ -52,20 +52,20 @@ export class YoutubeProvider extends MediaProvider {
           + id + options.query + '"' + options.attributes
           + ' frameborder="0" allowfullscreen></iframe>');
 
-        // return this.sanitize_iframe(`<iframe src="https://www.youtube.com/embed/${id}${options.query}" ${options.attributes} frameborder="0" allowfullscreen></iframe>`);        
+        // return this.sanitize_iframe(`<iframe src="https://www.youtube.com/embed/${id}${options.query}" ${options.attributes} frameborder="0" allowfullscreen></iframe>`);
     }
 
     getMediaId(url: URL): string {
         let id: string = '';
-        
+
         if (url.hostname.indexOf('youtube.com') > -1) {
             id = url.search.split('=')[1];
         }
-    
+
         if (url.hostname === 'youtu.be') {
             id = url.pathname.split('/')[1];
         }
-    
+
         return id;
     }
 
