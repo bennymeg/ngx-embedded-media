@@ -17,75 +17,84 @@ import { YoutubeProvider } from '../providers/youtube.provider';
 import { VimeoProvider } from '../providers/vimeo.provider';
 import { DailyMotionProvider } from '../providers/daily-motion.provider';
 import { MediaType, Options } from '../providers/media.provider';
+import { TwitchProvider } from '../providers/twitch.provider';
 
 
-export type Provider = 'youtube' | 'vimeo' | 'daily-motion';
+export type Provider = 'youtube' | 'twitch' | 'vimeo' | 'daily-motion';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class EmbeddedMediaService {
 
-  constructor(private _youtubeProvider: YoutubeProvider, private _vimeoProvider: VimeoProvider, 
-    private _dailyMotionProvider: DailyMotionProvider) {}
+    constructor(private _youtubeProvider: YoutubeProvider, private _twitchProvider: TwitchProvider,
+        private _vimeoProvider: VimeoProvider, private _dailyMotionProvider: DailyMotionProvider) { }
 
-  public getMedia(urlIdString: string, type: MediaType, provider?: Provider, options?: Options): any {
-    if (urlIdString.match(/^[A-Za-z0-9]+$/g)) {
-      if (!provider) console.warn('provider is missing');
+    public getMedia(urlIdString: string, type: MediaType, provider?: Provider, options?: Options): any {
+        if (urlIdString.match(/^[A-Za-z0-9]+$/g)) {
+            if (!provider) console.warn('provider is missing');
 
-      return this.getMediaById(urlIdString, type, provider, options);
-    } else {
-      return this.getMediaFromUrl(urlIdString, type, provider, options);
-    }
-  }
-
-  public getMediaFromUrl(urlString: string, type: MediaType, provider?: Provider, options?: Options): any {
-    let url = new URL(urlString);
-    let result: any;
-
-    switch (provider) {
-      case 'youtube':
-        result = this.getMediaById(this._youtubeProvider.getMediaId(url), type, provider, options);
-        break;
-      case 'vimeo':
-        result = this.getMediaById(this._vimeoProvider.getMediaId(url), type, provider, options);
-        break;
-      case 'daily-motion':
-        result = this.getMediaById(this._dailyMotionProvider.getMediaId(url), type, provider, options);
-        break;
-      default:
-        if (this._youtubeProvider.isValidUrl(url)) {
-          return this.getMediaById(this._youtubeProvider.getMediaId(url), type, 'youtube', options);
-        } else if (this._vimeoProvider.isValidUrl(url)) {
-          return this.getMediaById(this._vimeoProvider.getMediaId(url), type, 'vimeo', options);
-        } else if (this._dailyMotionProvider.isValidUrl(url)) {
-          return this.getMediaById(this._dailyMotionProvider.getMediaId(url), type, 'daily-motion', options);
+            return this.getMediaById(urlIdString, type, provider, options);
         } else {
-          console.error(`unknown content provider for '${url}'`);
-        }     
+            return this.getMediaFromUrl(urlIdString, type, provider, options);
+        }
     }
 
-    return result;
-  }
+    public getMediaFromUrl(urlString: string, type: MediaType, provider?: Provider, options?: Options): any {
+        let url = new URL(urlString);
+        let result: any;
 
-  public getMediaById(id: string, type: MediaType, provider?: Provider, options?: Options): any {
-    let result: any;
+        switch (provider) {
+            case 'youtube':
+                result = this.getMediaById(this._youtubeProvider.getMediaId(url), type, provider, options);
+                break;
+            case 'twitch':
+                result = this.getMediaById(this._twitchProvider.getMediaId(url), type, provider, options);
+                break;
+            case 'vimeo':
+                result = this.getMediaById(this._vimeoProvider.getMediaId(url), type, provider, options);
+                break;
+            case 'daily-motion':
+                result = this.getMediaById(this._dailyMotionProvider.getMediaId(url), type, provider, options);
+                break;
+            default:
+                if (this._youtubeProvider.isValidUrl(url)) {
+                    return this.getMediaById(this._youtubeProvider.getMediaId(url), type, 'youtube', options);
+                } else if (this._twitchProvider.isValidUrl(url)) {
+                    return this.getMediaById(this._twitchProvider.getMediaId(url), type, 'twitch', options);
+                } else if (this._vimeoProvider.isValidUrl(url)) {
+                    return this.getMediaById(this._vimeoProvider.getMediaId(url), type, 'vimeo', options);
+                } else if (this._dailyMotionProvider.isValidUrl(url)) {
+                    return this.getMediaById(this._dailyMotionProvider.getMediaId(url), type, 'daily-motion', options);
+                } else {
+                    console.error(`unknown content provider for '${url}'`);
+                }
+        }
 
-    switch (provider) {
-      case 'youtube':
-        result = this._youtubeProvider.getMedia(id, type, options);
-        break;
-      case 'vimeo':
-        result = this._vimeoProvider.getMedia(id, type, options);
-        break;
-      case 'daily-motion':
-        result = this._dailyMotionProvider.getMedia(id, type, options);
-        break;
-      default:
-        console.error(`unknown content provider '${provider}'`); 
+        return result;
     }
 
-    return result;
-  }
-   
+    public getMediaById(id: string, type: MediaType, provider?: Provider, options?: Options): any {
+        let result: any;
+
+        switch (provider) {
+            case 'youtube':
+                result = this._youtubeProvider.getMedia(id, type, options);
+                break;
+            case 'twitch':
+                    result = this._twitchProvider.getMedia(id, type, options);
+                    break;
+            case 'vimeo':
+                result = this._vimeoProvider.getMedia(id, type, options);
+                break;
+            case 'daily-motion':
+                result = this._dailyMotionProvider.getMedia(id, type, options);
+                break;
+            default:
+                console.error(`unknown content provider '${provider}'`);
+        }
+
+        return result;
+    }
+
 }
