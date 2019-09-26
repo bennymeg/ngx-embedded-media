@@ -52,7 +52,7 @@ Embedding video thumbnail:
 Object to be serialized as a query string and appended to the embedded content url. I.e:
 
 ```html
-<embedded-media video='https://www.youtube.com/watch?v=3Wf29RiKp70' query='{ "portrait": 0, "color": "fdfdfd" }'></embedded-media>
+<embedded-media video='https://www.youtube.com/watch?v=3Wf29RiKp70' query='{ "portrait": 0, "muted": true }'></embedded-media>
 ```
 
 ### attributes
