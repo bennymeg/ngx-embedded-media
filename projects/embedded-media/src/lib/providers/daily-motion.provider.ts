@@ -60,6 +60,10 @@ export class DailyMotionProvider extends MediaProvider {
         // return this.sanitize_iframe(`<iframe src="https://www.dailymotion.com/embed/video/${id}${options.query}" ${options.attributes} frameborder="0" allowfullscreen></iframe>`);
     }
 
+    getPlaylist(id: string, options?: any): string {
+        throw new Error('Method not implemented.');
+    }
+
     getMediaId(url: URL): string {
         let id: string = '';
 

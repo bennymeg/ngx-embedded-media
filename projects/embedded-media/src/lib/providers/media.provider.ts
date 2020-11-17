@@ -17,15 +17,10 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { Injectable } from '@angular/core';
 import { Provider } from '../factories/providers.factory';
 
-export type MediaType = 'video' | 'image';
+export type MediaType = 'video' | 'image' | 'playlist';
 
 export type OptionsType = 'query' | 'attributes' | 'resolution';
 
-export interface Options {
-    query: any;
-    attr: any;
-    image: any;
-}
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +33,8 @@ export abstract class MediaProvider {
     abstract getImage(id: string, options?: any): any;
 
     abstract getVideo(id: string, options?: any): string;
+
+    abstract getPlaylist(id: string, options?: any): string;
 
     abstract getMediaId(url: URL): string;
 
@@ -62,6 +59,9 @@ export abstract class MediaProvider {
                 break;
             case 'video':
                 result = this.getVideo(id, options);
+                break;
+            case 'playlist':
+                result = this.getPlaylist(id, options);
                 break;
         }
 

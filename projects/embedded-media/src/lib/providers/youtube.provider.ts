@@ -55,6 +55,14 @@ export class YoutubeProvider extends MediaProvider {
         // return this.sanitize_iframe(`<iframe src="https://www.youtube.com/embed/${id}${options.query}" ${options.attributes} frameborder="0" allowfullscreen></iframe>`);
     }
 
+    getPlaylist(id: string, options?: any): string {
+        options = this.parseGlobalOptions(options);
+
+        return this.sanitize_iframe('<iframe src="https://www.youtube.com/embed/videoseries?list='
+          + id + options.query + '"' + options.attributes
+          + ' frameborder="0" allowfullscreen></iframe>');
+    }
+
     getMediaId(url: URL): string {
         let id: string = '';
 

@@ -14,7 +14,8 @@
 
 import { Injectable } from '@angular/core';
 import { ProvidersFactory, Provider } from '../factories/providers.factory';
-import { MediaType, Options, MediaProvider } from '../providers/media.provider';
+import { MediaType, MediaProvider } from '../providers/media.provider';
+import { Options } from '../interfaces/interfaces';
 
 
 @Injectable({
@@ -25,7 +26,7 @@ export class EmbeddedMediaService {
     constructor(private _providersFactory: ProvidersFactory) { }
 
     public getMedia(urlIdString: string, type: MediaType, provider?: Provider, options?: Options): any {
-        if (urlIdString.match(/^[A-Za-z0-9]+$/g)) {
+        if (urlIdString.match(/^[A-Za-z0-9_-]+$/g)) {
             if (!provider) console.warn('provider is missing');
 
             return this.getMediaById(urlIdString, type, provider, options);

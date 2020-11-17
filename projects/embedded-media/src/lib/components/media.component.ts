@@ -26,6 +26,7 @@ export class MediaComponent implements OnInit {
   embeddedMediaHtml: string = '';
   mediaOptions: Options = {};
 
+  @Input('playlist') playlist?: string;
   @Input('video') video?: string;
   @Input('image') image?: string;
   @Input('provider') provider?: Provider;
@@ -41,7 +42,9 @@ export class MediaComponent implements OnInit {
   ngOnInit() {
     this.parseMediaOptions();
 
-    if (this.video) {
+    if (this.playlist) {
+      this.embeddedMediaHtml = this._mediaService.getMedia(this.playlist, 'playlist', this.provider, this.mediaOptions);
+    } else if (this.video) {
       this.embeddedMediaHtml = this._mediaService.getMedia(this.video, 'video', this.provider, this.mediaOptions);
     } else if (this.image) {
       this._mediaService.getMedia(this.image, 'image', this.provider, this.mediaOptions).then(response => {

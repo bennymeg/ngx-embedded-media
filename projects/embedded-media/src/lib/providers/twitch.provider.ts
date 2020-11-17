@@ -49,13 +49,17 @@ export class TwitchProvider extends MediaProvider {
             case 'clip':
                 iframe = this.sanitize_iframe('<iframe src="https://clips.twitch.tv/embed'
                 + options.query + '"' + options.attributes
-                + ' frameborder="0" allowfullscreen></iframe>');
+                + ' frameborder="0" allowfullscreen style="position:absolute;top:0;left:0;"></iframe>');
                 break;
         }
 
         return iframe;
 
         // return this.sanitize_iframe(`<iframe src="https://player.twitch.tv/${options.query}" ${options.attributes} frameborder="0" allowfullscreen></iframe>`);
+    }
+
+    getPlaylist(id: string, options?: any): string {
+        throw new Error('Method not implemented.');
     }
 
     preprocessOptions(id: string, options?: any): any {

@@ -54,6 +54,10 @@ export class VimeoProvider extends MediaProvider {
         // return this.sanitize_iframe(`<iframe src="https://player.vimeo.com/video/${id}${options.query}" ${options.attributes} frameborder="0" allowfullscreen></iframe>`);
     }
 
+    getPlaylist(id: string, options?: any): string {
+        throw new Error('Method not implemented.');
+    }
+
     getMediaId(url: URL): string {
         return (url.hostname === 'vimeo.com') ? url.pathname.split('/')[1] : '';
     }
