@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { Provider } from '../factories/providers.factory';
 import { EmbeddedMediaService } from '../services/media.service';
 import { Styles, Attributes, Options } from '../interfaces/interfaces';
@@ -20,7 +20,8 @@ import { Styles, Attributes, Options } from '../interfaces/interfaces';
 @Component({
   selector: 'embedded-media',
   templateUrl: './media.component.html',
-  styleUrls: ['./media.component.scss']
+  styleUrls: ['./media.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MediaComponent implements OnInit, OnChanges {
   embeddedMediaHtml: string = '';
