@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'embedded-media-test';
+  youtubeVideoId = 'iHhcHTlGtRs';
+
+  update() {
+    this.youtubeVideoId = '3Wf29RiKp70';
+  }
 }

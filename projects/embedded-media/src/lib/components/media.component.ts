@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { Provider } from '../factories/providers.factory';
 import { EmbeddedMediaService } from '../services/media.service';
 import { Styles, Attributes, Options } from '../interfaces/interfaces';
@@ -22,7 +22,7 @@ import { Styles, Attributes, Options } from '../interfaces/interfaces';
   templateUrl: './media.component.html',
   styleUrls: ['./media.component.scss']
 })
-export class MediaComponent implements OnInit {
+export class MediaComponent implements OnInit, OnChanges {
   embeddedMediaHtml: string = '';
   mediaOptions: Options = {};
 
@@ -41,7 +41,15 @@ export class MediaComponent implements OnInit {
 
   ngOnInit() {
     this.parseMediaOptions();
+    this.renderComponent();
+  }
 
+  ngOnChanges(changes: SimpleChanges) {
+    this.parseMediaOptions();
+    this.renderComponent();
+  }
+
+  renderComponent() {
     if (this.playlist) {
       this.embeddedMediaHtml = this._mediaService.getMedia(this.playlist, 'playlist', this.provider, this.mediaOptions);
     } else if (this.video) {

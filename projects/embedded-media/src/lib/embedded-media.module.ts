@@ -26,16 +26,16 @@ import { DailyMotionProvider } from './providers/daily-motion.provider';
 
 
 @NgModule({
-	imports: [ CommonModule, HttpClientModule ],
-	declarations: [ MediaComponent ],
-	exports: [ MediaComponent ],
-	providers: [ EmbeddedMediaService, ProvidersFactory, YoutubeProvider, VimeoProvider, TwitchProvider, DailyMotionProvider ]
+    imports: [ CommonModule, HttpClientModule ],
+    declarations: [ MediaComponent ],
+    exports: [ MediaComponent ],
+    providers: [ EmbeddedMediaService, ProvidersFactory, YoutubeProvider, VimeoProvider, TwitchProvider, DailyMotionProvider ]
 })
 export class EmbeddedMediaModule {
-	static forRoot(): ModuleWithProviders<EmbeddedMediaModule> {
-		return {
-			ngModule: EmbeddedMediaModule,
-			providers: [ EmbeddedMediaService, ProvidersFactory, YoutubeProvider, VimeoProvider, TwitchProvider, DailyMotionProvider ]
-		};
-	}
+    static forRoot(): ModuleWithProviders<EmbeddedMediaModule> {
+        return {
+            ngModule: EmbeddedMediaModule,
+            providers: [ EmbeddedMediaService, ProvidersFactory, YoutubeProvider, VimeoProvider, TwitchProvider, DailyMotionProvider ]
+        };
+    }
 }

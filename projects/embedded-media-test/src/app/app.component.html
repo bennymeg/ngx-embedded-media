@@ -1,10 +1,12 @@
+<button (click)="update()">Update</button>
+
 <!-- <div style="height: 320px;"></div> -->
 
 <!-- <embedded-media video='CrypticMushyBaboonSoonerLater' provider="twitch" query='{ "parent": "localhost" }' attributes='{ "width": "560px", "height": "315px"}'></embedded-media> -->
 
 <embedded-media video='802089173' provider="twitch" query='{ "parent": "localhost" }' attributes='{ "width": "560px", "height": "315px"}'></embedded-media>
 
-<embedded-media video='iHhcHTlGtRs' provider='youtube' query='{ "portrait": 0, "color": "fdfdfd" }' attributes='{ "width": 560, "height": 315 }'></embedded-media>
+<embedded-media [video]='youtubeVideoId' provider='youtube' query='{ "portrait": 0, "color": "fdfdfd" }' attributes='{ "width": 560, "height": 315 }'></embedded-media>
 
 <embedded-media playlist='PLpRjkOHBe_TgmznCle__jWDhoV4aFgCjw' query='{ "portrait": 0, "color": "fdfdfd" }' provider='youtube'></embedded-media>
 
