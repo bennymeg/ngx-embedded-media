@@ -41,18 +41,18 @@ export class MediaComponent implements OnInit, OnChanges {
   constructor(private _mediaService: EmbeddedMediaService) { }
 
   ngOnInit() {
-    this.parseMediaOptions();
     this.renderComponent();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     console.log('[NGX EMBEDDED MEDIA] change detected: ', changes);
 
-    this.parseMediaOptions();
     this.renderComponent();
   }
 
-  renderComponent() {
+  public renderComponent() {
+    this.parseMediaOptions();
+
     if (this.playlist) {
       this.embeddedMediaHtml = this._mediaService.getMedia(this.playlist, 'playlist', this.provider, this.mediaOptions);
     } else if (this.video) {
@@ -66,7 +66,7 @@ export class MediaComponent implements OnInit, OnChanges {
     }
   }
 
-  parseMediaOptions() {
+  private parseMediaOptions() {
     if (this.query) {
       this.mediaOptions['query'] = JSON.parse(this.query);
     }
@@ -104,7 +104,7 @@ export class MediaComponent implements OnInit, OnChanges {
     }
   }
 
-  isValidRatio(ratio: string): boolean {
+  private isValidRatio(ratio: string): boolean {
     const expression = new RegExp('^\d+([.]\d+)?:\d+([.]\d+)?$');
 
     return expression.test(ratio);
