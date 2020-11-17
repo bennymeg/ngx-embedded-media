@@ -30,7 +30,7 @@ export { MediaComponent } from './components/media.component';
 	providers: [ EmbeddedMediaService ]
 })
 export class EmbeddedMediaModule {
-	static forRoot(): ModuleWithProviders {
+	static forRoot(): ModuleWithProviders<EmbeddedMediaModule> {
 		return {
 			ngModule: EmbeddedMediaModule,
 			providers: [ EmbeddedMediaService ]
