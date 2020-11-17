@@ -18,22 +18,24 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { EmbeddedMediaService } from './services/media.service';
 import { MediaComponent } from './components/media.component';
-
-export { EmbeddedMediaService } from './services/media.service';
-export { MediaComponent } from './components/media.component';
+import { ProvidersFactory } from './factories/providers.factory';
+import { YoutubeProvider } from './providers/youtube.provider';
+import { VimeoProvider } from './providers/vimeo.provider';
+import { TwitchProvider } from './providers/twitch.provider';
+import { DailyMotionProvider } from './providers/daily-motion.provider';
 
 
 @NgModule({
 	imports: [ CommonModule, HttpClientModule ],
 	declarations: [ MediaComponent ],
 	exports: [ MediaComponent ],
-	providers: [ EmbeddedMediaService ]
+	providers: [ EmbeddedMediaService, ProvidersFactory, YoutubeProvider, VimeoProvider, TwitchProvider, DailyMotionProvider ]
 })
 export class EmbeddedMediaModule {
 	static forRoot(): ModuleWithProviders<EmbeddedMediaModule> {
 		return {
 			ngModule: EmbeddedMediaModule,
-			providers: [ EmbeddedMediaService ]
+			providers: [ EmbeddedMediaService, ProvidersFactory, YoutubeProvider, VimeoProvider, TwitchProvider, DailyMotionProvider ]
 		};
 	}
 }

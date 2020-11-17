@@ -14,8 +14,8 @@
           "options": {
             "tsConfig": "projects/embedded-media/tsconfig.lib.json",
             "project": "projects/embedded-media/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/embedded-media/tsconfig.lib.prod.json"
             }
@@ -62,7 +62,7 @@
             "main": "projects/embedded-media-test/src/main.ts",
             "polyfills": "projects/embedded-media-test/src/polyfills.ts",
             "tsConfig": "projects/embedded-media-test/tsconfig.app.json",
-            "aot": true,
+            "aot": false,
             "assets": [
               "projects/embedded-media-test/src/favicon.ico",
               "projects/embedded-media-test/src/assets"
