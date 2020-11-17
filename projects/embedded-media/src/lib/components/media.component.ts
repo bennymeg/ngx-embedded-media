@@ -26,15 +26,15 @@ export class MediaComponent implements OnInit, OnChanges {
   embeddedMediaHtml: string = '';
   mediaOptions: Options = {};
 
-  @Input('playlist') playlist?: string;
-  @Input('video') video?: string;
-  @Input('image') image?: string;
-  @Input('provider') provider?: Provider;
-  @Input('classes') classes?: string[];
-  @Input('styles') styles?: Styles;
-  @Input('attributes') attributes?: Attributes | string;  // fixme: remove string option on next release
-  @Input('query') query?: string;
-  @Input('resolution') options?: string;
+  @Input() playlist?: string;
+  @Input() video?: string;
+  @Input() image?: string;
+  @Input() provider?: Provider;
+  @Input() classes?: string[];
+  @Input() styles?: Styles;
+  @Input() attributes?: Attributes | string;  // fixme: remove string option on next release
+  @Input() query?: string;
+  @Input() resolution?: string;
   // @Input('ratio') ratio?: string;
 
   constructor(private _mediaService: EmbeddedMediaService) { }
@@ -45,6 +45,8 @@ export class MediaComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    console.log('[NGX EMBEDDED MEDIA] change detected: ', changes);
+
     this.parseMediaOptions();
     this.renderComponent();
   }
@@ -64,7 +66,9 @@ export class MediaComponent implements OnInit, OnChanges {
   }
 
   parseMediaOptions() {
-    if (this.query) this.mediaOptions['query'] = JSON.parse(this.query);
+    if (this.query) {
+      this.mediaOptions['query'] = JSON.parse(this.query);
+    }
 
     if (this.attributes) {
       if (typeof this.attributes === 'string') {  // fixme: remove string option on next release
@@ -94,11 +98,13 @@ export class MediaComponent implements OnInit, OnChanges {
       }
     }
 
-    if (this.options) this.mediaOptions['resolution'] = this.options;
+    if (this.resolution) {
+      this.mediaOptions['resolution'] = this.resolution;
+    }
   }
 
   isValidRatio(ratio: string): boolean {
-    let expression = new RegExp('^\d+([.]\d+)?:\d+([.]\d+)?$');
+    const expression = new RegExp('^\d+([.]\d+)?:\d+([.]\d+)?$');
 
     return expression.test(ratio);
   }

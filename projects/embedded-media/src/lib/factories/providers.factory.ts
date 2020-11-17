@@ -28,7 +28,7 @@ export type Provider = 'youtube' | 'twitch' | 'vimeo' | 'daily-motion';
 export class ProvidersFactory {
 
     constructor(private _youtubeProvider: YoutubeProvider, private _twitchProvider: TwitchProvider,
-        private _vimeoProvider: VimeoProvider, private _dailyMotionProvider: DailyMotionProvider) { }
+                private _vimeoProvider: VimeoProvider, private _dailyMotionProvider: DailyMotionProvider) { }
 
     public getProviderByName(providerName: Provider): MediaProvider {
         let result: MediaProvider;
@@ -70,5 +70,4 @@ export class ProvidersFactory {
 
         return result;
     }
-
 }
