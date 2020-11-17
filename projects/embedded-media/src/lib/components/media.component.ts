@@ -15,6 +15,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Provider } from '../factories/providers.factory';
 import { EmbeddedMediaService } from '../services/media.service';
+import { Styles, Attributes, Options } from '../interfaces/interfaces';
 
 @Component({
   selector: 'embedded-media',
@@ -23,14 +24,17 @@ import { EmbeddedMediaService } from '../services/media.service';
 })
 export class MediaComponent implements OnInit {
   embeddedMediaHtml: string = '';
-  mediaOptions: any = {};
+  mediaOptions: Options = {};
 
-  @Input('video') video: string;
-  @Input('image') image: string;
-  @Input('provider') provider: Provider;
-  @Input('query') query: string;
-  @Input('attributes') attributes: string;
-  @Input('resolution') options: string;
+  @Input('video') video?: string;
+  @Input('image') image?: string;
+  @Input('provider') provider?: Provider;
+  @Input('classes') classes?: string[];
+  @Input('styles') styles?: Styles;
+  @Input('attributes') attributes?: Attributes | string;  // fixme: remove string option on next release
+  @Input('query') query?: string;
+  @Input('resolution') options?: string;
+  // @Input('ratio') ratio?: string;
 
   constructor(private _mediaService: EmbeddedMediaService) { }
 
@@ -50,8 +54,42 @@ export class MediaComponent implements OnInit {
 
   parseMediaOptions() {
     if (this.query) this.mediaOptions['query'] = JSON.parse(this.query);
-    if (this.attributes) this.mediaOptions['attributes'] = JSON.parse(this.attributes);
+
+    if (this.attributes) {
+      if (typeof this.attributes === 'string') {  // fixme: remove string option on next release
+        this.mediaOptions['attributes'] = JSON.parse(this.attributes);
+      } else {
+        this.mediaOptions['attributes'] = this.attributes;
+      }
+    } else if (this.classes || this.styles) {
+      this.mediaOptions['attributes'] = {};
+    }
+
+    if (this.classes) {
+      if (this.mediaOptions['attributes']['class']) {
+        this.mediaOptions['attributes']['class'] = 
+          this.mediaOptions['attributes']['class'].toString().concat(' ', this.classes.join(' '));
+      } else {
+        this.mediaOptions['attributes']['class'] = this.classes.join(' ');
+      }
+    }
+
+    if (this.styles) {
+      if (this.mediaOptions['attributes']['style']) {
+        this.mediaOptions['attributes']['style'] = 
+          JSON.stringify(Object.assign(JSON.parse(this.mediaOptions['attributes']['style'].toString()), this.styles));
+      } else {
+        this.mediaOptions['attributes']['style'] = JSON.stringify(this.styles);
+      }
+    }
+
     if (this.options) this.mediaOptions['resolution'] = this.options;
+  }
+
+  isValidRatio(ratio: string): boolean {
+    let expression = new RegExp('^\d+([.]\d+)?:\d+([.]\d+)?$');
+
+    return expression.test(ratio);
   }
 
 }
